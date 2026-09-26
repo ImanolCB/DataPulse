@@ -62,7 +62,7 @@ function updateDataTable(dataTable) {
 }
 
 async function cargarDatos() {
-    const response = await fetch("https://dominio-que-no-existe-123456789.com/todos");
+    const response = await fetch("https://jsonplaceholder.typicode.com/todos");
     if (!response.ok) {
         const error = new Error(
             `Error al obtener los datos, status ${response.status}`,
@@ -73,6 +73,19 @@ async function cargarDatos() {
     const data = await response.json();
     console.log(data[0]);
     console.log(data[0].title);
+    // const ventasTransformadas = data.map((item) => {
+    //     return {
+    //         idProduct: item.id,
+    //         producto: item.title,
+    //         precio: item.id * 10,
+    //     };
+    // });
+    // return ventasTransformadas;
+    return transformarVentas(data);
+}
+
+
+function transformarVentas(data){
     const ventasTransformadas = data.map((item) => {
         return {
             idProduct: item.id,
