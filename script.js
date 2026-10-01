@@ -8,7 +8,8 @@ const tbody = document.querySelector("tbody");
 btnLoadSells.addEventListener("click", async function () {
     try {
         const data = await cargarDatos();
-        updateDataTable(data);
+        const ventas = transformarVentas(data);
+        updateDataTable(ventas);
         titulo.textContent = "DataPulse — Ventas cargadas";
     } catch (error) {
         console.error(error);
@@ -70,18 +71,7 @@ async function cargarDatos() {
         error.status = response.status;
         throw error;
     }
-    const data = await response.json();
-    console.log(data[0]);
-    console.log(data[0].title);
-    // const ventasTransformadas = data.map((item) => {
-    //     return {
-    //         idProduct: item.id,
-    //         producto: item.title,
-    //         precio: item.id * 10,
-    //     };
-    // });
-    // return ventasTransformadas;
-    return transformarVentas(data);
+    return response.json();
 }
 
 
